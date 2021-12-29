@@ -1,0 +1,7 @@
+Displaying Bating Data for Team 
+Name :  Scored : 0 Balls Played : 0 Missed Balls : 0
+Name :  Scored : 0 Balls Played : 0 Missed Balls : 0
+Name :  Scored : 0 Balls Played : 0 Missed Balls : 0
+Name :  Scored : 0 Balls Played : 0 Missed Balls : 0
+Name :  Scored : 0 Balls Played : 0 Missed Balls : 0
+Total Scores by Team : 0
