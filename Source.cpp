@@ -3,7 +3,7 @@
 #include<windows.h>
 #include<fstream>
 using namespace std;
-int totalovers, bat1, bat2;	bool check1, check2;
+int totalovers, bat1, bat2, bat3, bat4;	bool check1, check2;
 
 class batsman
 {
@@ -56,9 +56,7 @@ public:
 		name = "N / A";
 	}
 };
-player frt;
-player snd;
-player bowler;
+
 class team
 {
 public:
@@ -81,10 +79,15 @@ public:
 class match : public team
 {
 public:
+	player frt;
+	player snd;
+	player frt2;
+	player snd2;
+	player bowler;
 	team t1;
 	team t2;
 	bool toss;
-	void swap()
+	void swap1()
 	{
 		player temp;
 		temp = frt;
@@ -95,6 +98,20 @@ public:
 		cout << "\nStriker Changed !!!!" << endl;
 		cout << "Current Striker : " << frt.name << endl;
 		cout << "Current Non-Striker : " << snd.name << endl;
+		system("pause");
+		system("cls");
+	}
+	void swap2()
+	{
+		player temp;
+		temp = frt2;
+		frt2 = snd2;
+		snd2 = temp;
+		t2.p[bat3] = frt2;
+		t2.p[bat4] = snd2;
+		cout << "\nStriker Changed !!!!" << endl;
+		cout << "Current Striker : " << frt2.name << endl;
+		cout << "Current Non-Striker : " << snd2.name << endl;
 		system("pause");
 		system("cls");
 	}
@@ -236,8 +253,8 @@ public:
 	void next_batsman1()
 	{
 	here:
-		t1.p[bat1] = frt;
-		t1.p[bat2] = snd;
+		/*t1.p[bat1] = frt;
+		t1.p[bat2] = snd;*/
 		//system("cls");
 		show_players1();
 		int i, j;
@@ -255,6 +272,7 @@ public:
 		snd = t1.p[j - 1];
 		bat1 = i - 1;
 		bat2 = j - 1;
+
 		cout << "Striker : " << frt.name << endl;
 		cout << "Non-striker : " << snd.name << endl;
 	}
@@ -279,8 +297,8 @@ public:
 	void changeStriker2()
 	{
 	here:
-		t1.p[bat1] = frt;
-		t1.p[bat2] = snd;
+		t2.p[bat3] = frt2;
+		t2.p[bat4] = snd2;
 		//system("cls");
 		show_playersNotOut2();
 		int i, j;
@@ -289,17 +307,17 @@ public:
 		{
 			goto here;
 		}
-		frt = t2.p[i - 1];
-		bat1 = i - 1;
-		cout << "Striker : " << frt.name << endl;
-		cout << "Non-striker : " << snd.name << endl;
+		frt2 = t2.p[i - 1];
+		bat3 = i - 1;
+		cout << "Striker : " << frt2.name << endl;
+		cout << "Non-striker : " << snd2.name << endl;
 	}
 	void next_batsman2()
 	{
+
 	here:
-		t2.p[bat1] = frt;
-		t2.p[bat2] = snd;
-		system("cls");
+
+		//system("cls");
 		show_players2();
 		int i, j;
 		cout << "Enter Striker number : ";
@@ -310,14 +328,19 @@ public:
 		}
 		cout << "Enter Non-Striker number : ";
 		cin >> j;
+	here2:
 		if (cin.fail())
 		{
-			goto here;
+			goto here2;
 		}
-		frt = t2.p[i - 1];
-		snd = t2.p[j - 1];
-		cout << "Striker : " << frt.name << endl;
-		cout << "Non-striker : " << snd.name << endl;
+		frt2 = t2.p[i - 1];
+		snd2 = t2.p[j - 1];
+		bat3 = i - 1;
+		bat4 = j - 1;
+		t2.p[bat3] = frt2;
+		t2.p[bat4] = snd2;
+		cout << "Striker : " << frt2.name << endl;
+		cout << "Non-striker : " << snd2.name << endl;
 	}
 	void next_bowler1()
 	{
@@ -385,7 +408,7 @@ public:
 					frt.add_scored(1);
 					bowler.add_score(1);
 					balls++;
-					swap();
+					swap1();
 					break;
 				}
 				case 2:
@@ -402,7 +425,7 @@ public:
 					frt.add_scored(3);
 					bowler.add_score(3);
 					balls++;
-					swap();
+					swap1();
 					break;
 				}
 				case 4:
@@ -416,7 +439,7 @@ public:
 				case 5:
 				{
 					t1.total = t1.total + 5;
-					t1.extra = t1.extra + 5;
+					//t1.extra = t1.extra + 5;
 					bowler.add_score(5);
 					break;
 				}
@@ -431,7 +454,7 @@ public:
 				case 7:
 				{
 					t1.total = t1.total + 1;
-					t1.extra = t1.extra + 1;
+					//t1.extra = t1.extra + 1;
 					bowler.add_score(1);
 					break;
 				}
@@ -453,6 +476,7 @@ public:
 					goto here1;
 				}
 				}
+				//t1.total = t1.total + t1.extra;
 				system("cls");
 				cout << "\nBowler : " << bowler.name << " Score : " << bowler.score << " Wickets : " << bowler.wickets << " Over : " << bowler.overs << " Ball : " << balls << endl;
 				cout << "\nStriker : " << frt.name << " Scored : " << frt.scored << " Missed Balls : " << frt.missedballs << " Balls faced :  " << frt.ballsfaced << endl;
@@ -467,6 +491,8 @@ public:
 			cout << "\nNon_striker : " << snd.name << " Scored : " << snd.scored << " Missed Balls : " << snd.missedballs << " Balls Faced : " << snd.ballsfaced << endl;
 			cout << "\nOver Reached!!!" << endl;
 			cout << "Team " << t1.team_name << " Total : " << t1.total << " Wickets (Out) : " << t1.wicket << endl;
+			t1.p[bat1] = frt;
+			t1.p[bat2] = snd;
 			system("pause");
 			system("cls");
 			if (t1.total > t2.total && check2 == true)
@@ -478,7 +504,13 @@ public:
 			{
 				next_bowler2();
 			}
-			swap();
+			else
+			{
+				cout << "No more Overs\n";
+				Sleep(2000);
+				return;
+			}
+			swap1();
 			balls = 0;
 		}
 		check1 = true;
@@ -523,7 +555,7 @@ public:
 				case 0:
 				{
 					t2.total = t2.total + 0;
-					frt.add_missedballs();
+					frt2.add_missedballs();
 					bowler.add_dotballs();
 					balls++;
 					break;
@@ -531,16 +563,16 @@ public:
 				case 1:
 				{
 					t2.total = t2.total + 1;
-					frt.add_scored(1);
+					frt2.add_scored(1);
 					bowler.add_score(1);
 					balls++;
-					swap();
+					swap2();
 					break;
 				}
 				case 2:
 				{
 					t2.total = t2.total + 2;
-					frt.add_scored(2);
+					frt2.add_scored(2);
 					bowler.add_score(2);
 					balls++;
 					break;
@@ -548,16 +580,16 @@ public:
 				case 3:
 				{
 					t2.total = t2.total + 3;
-					frt.add_scored(3);
+					frt2.add_scored(3);
 					bowler.add_score(3);
 					balls++;
-					swap();
+					swap2();
 					break;
 				}
 				case 4:
 				{
 					t2.total = t2.total + 4;
-					frt.add_scored(4);
+					frt2.add_scored(4);
 					bowler.add_score(4);
 					balls++;
 					break;
@@ -565,15 +597,14 @@ public:
 				case 5:
 				{
 					t2.total = t2.total + 5;
-					t2.total = t2.total + 5;
-					t2.extra = t2.extra + 5;
+					//t2.extra = t2.extra + 5;
 					bowler.add_score(5);
 					break;
 				}
 				case 6:
 				{
 					t2.total = t2.total + 6;
-					frt.add_scored(6);
+					frt2.add_scored(6);
 					bowler.add_score(6);
 					balls++;
 					break;
@@ -581,14 +612,14 @@ public:
 				case 7:
 				{
 					t2.total = t2.total + 1;
-					t2.extra = t2.extra + 1;
+					//t2.extra = t2.extra + 1;
 					bowler.add_score(1);
 					break;
 				}
 				case 8:
 				{
 					bowler.add_wickets();
-					t2.out[bat1] = true;
+					t2.out[bat3] = true;
 					i++;
 					t2.wicket = t2.wicket + 1;
 					if (t2.wicket > 3) { cout << "Wickets reached!....\n"; Sleep(2000); return; }
@@ -604,8 +635,8 @@ public:
 				}
 				system("cls");
 				cout << "\nBowler : " << bowler.name << " Score : " << bowler.score << " got Wickets : " << bowler.wickets << " Overs : " << bowler.overs << " Ball : " << balls << endl;
-				cout << "\nStriker : " << frt.name << " Scored : " << frt.scored << " Missed Balls : " << frt.missedballs << " Balls Faced : " << frt.ballsfaced << endl;
-				cout << "\nNon_Striker : " << snd.name << " Scored : " << snd.scored << " Missed Balls : " << snd.missedballs << " Balls Faced : " << snd.ballsfaced << endl;
+				cout << "\nStriker : " << frt2.name << " Scored : " << frt2.scored << " Missed Balls : " << frt2.missedballs << " Balls Faced : " << frt2.ballsfaced << endl;
+				cout << "\nNon_Striker : " << snd2.name << " Scored : " << snd2.scored << " Missed Balls : " << snd2.missedballs << " Balls Faced : " << snd2.ballsfaced << endl;
 				cout << "\nTeam " << t2.team_name << " Total : " << t2.total << " Wickets (out) : " << t2.wicket << endl;
 			}
 			test++;
@@ -613,10 +644,12 @@ public:
 		hereee:
 			system("cls");
 			cout << "\nBowler : " << bowler.name << " Score : " << bowler.score << " got Wickets : " << bowler.wickets << " Overs : " << bowler.overs << " Balls : " << balls << endl;
-			cout << "\nStriker : " << frt.name << " Scored : " << frt.scored << " Missed Balls : " << frt.missedballs << " Balls Faced : " << frt.ballsfaced << endl;
-			cout << "\nNon_Striker : " << snd.name << " Scored : " << snd.scored << " Missed Balls : " << snd.missedballs << " Balls Faced : " << snd.ballsfaced << endl;
+			cout << "\nStriker : " << frt2.name << " Scored : " << frt2.scored << " Missed Balls : " << frt2.missedballs << " Balls Faced : " << frt2.ballsfaced << endl;
+			cout << "\nNon_Striker : " << snd2.name << " Scored : " << snd2.scored << " Missed Balls : " << snd2.missedballs << " Balls Faced : " << snd2.ballsfaced << endl;
 			cout << "\nTeam " << t2.team_name << " Total : " << t2.total << " Wickets (out) : " << t2.wicket << endl;
 			cout << "\nOver Reached!!!" << endl;
+			t2.p[bat3] = frt2;
+			t2.p[bat4] = snd2;
 			system("pause");
 			system("cls");
 			if (t2.total > t1.total && check1 == true)
@@ -628,7 +661,12 @@ public:
 			{
 				next_bowler1();
 			}
-			swap();
+			else
+			{
+				cout << "No more Overs\n";
+				return;
+			}
+			swap2();
 			balls = 0;
 		}
 		check2 = true;
@@ -637,6 +675,8 @@ public:
 	{
 		if (t1.total < t2.total)
 			cout << t2.team_name << " has won the match" << endl;
+		else if (t1.total == t2.total)
+			cout << "Match Draw!!!!\n";
 		else
 			cout << t1.team_name << " has won the match" << endl;
 	}
@@ -689,8 +729,10 @@ public:
 			cout << t1.team_name << " is going to bat first" << endl;
 			cout << "Innings 01\n";
 			inning1();
+			WriteBatingData1();
 			cout << "Innings 02\n";
 			inning2();
+			WriteBatingData2();
 
 		}
 		else
@@ -698,9 +740,10 @@ public:
 			cout << t2.team_name << " is going to bat first" << endl;
 			cout << "Innings 01\n";
 			inning2();
+			WriteBatingData2();
 			cout << "Innings 02\n";
 			inning1();
-
+			WriteBatingData1();
 		}
 	}
 	void setOvers()
@@ -791,12 +834,10 @@ int main()
 	m.whoWannaBatFirst();
 	m.set_names();
 	m.startMatch();
-	//m.getWinner();
+	m.getWinner();
 	cout << "\n\n";
 	m.showBatingData1();
 	cout << "\n\n";
 	m.showBatingData2();
-	m.WriteBatingData1();
-	m.WriteBatingData2();
 	return 0;
 }
