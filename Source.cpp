@@ -51,6 +51,10 @@ class player : public batsman, public bowler
 {
 public:
 	string name;
+	player()
+	{
+		name = "N / A";
+	}
 };
 player frt;
 player snd;
@@ -158,13 +162,13 @@ public:
 			cout << st << endl;
 		}
 		cout << "Enter Player Names for team " << t1.team_name << endl;
-		cin.ignore(1);
+		cin.ignore(1, '\n');
 		for (int i = 0; i < 5; i++)
 		{
 			cout << "Player No." << i + 1 << "=>";
-			cin >> t1.p[i].name;
+			getline(cin, t1.p[i].name);
+			//cin.ignore(1, '\n');
 		}
-		cout << endl << endl;
 		system("pause");
 		system("cls");
 		{
@@ -179,7 +183,7 @@ public:
 		for (int i = 0; i < 5; i++)
 		{
 			cout << "Player No." << i + 1 << "=>";
-			cin >> t2.p[i].name;
+			getline(cin, t2.p[i].name);
 		}
 		cout << "Player Names Settled\n";
 		system("pause");
@@ -356,10 +360,14 @@ public:
 				cout << "---Enter 8 : Wicket   ---" << endl;
 				cout << "--------------------------\n";
 				int temp;
+			here11:
 				cin >> temp;
 				if (cin.fail())
 				{
-					goto here1;
+					cin.clear();
+					cout << "Input Failure\ntry again\n";
+					cin.ignore(1000, '\n');
+					goto here11;
 				}
 				switch (temp)
 				{
@@ -501,11 +509,14 @@ public:
 				cout << "---Enter 8 : Wicket   ---" << endl;
 				cout << "--------------------------\n";
 				int temp;
+			here11:
 				cin >> temp;
 				if (cin.fail())
 				{
-					cout << "Input failure!!! Enter again\n";
-					goto here1;
+					cin.clear();
+					cout << "Input Failure\ntry again\n";
+					cin.ignore(1000, '\n');
+					goto here11;
 				}
 				switch (temp)
 				{
@@ -743,7 +754,7 @@ public:
 	void WriteBatingData1()
 	{
 		ofstream t11;
-		t11.open("Team 01.txt", ios::trunc);
+		t11.open(t1.team_name + ".txt", ios::trunc);
 		t11 << "Displaying Bating Data for Team " << t1.team_name << endl;
 		for (int i = 0; i < 5; i++)
 		{
@@ -754,7 +765,7 @@ public:
 	void WriteBatingData2()
 	{
 		ofstream t22;
-		t22.open("Team 02.txt", ios::trunc);
+		t22.open(t2.team_name + ".txt", ios::trunc);
 		t22 << "Displaying Bating Data for Team " << t2.team_name << endl;
 		for (int i = 0; i < 5; i++)
 		{
